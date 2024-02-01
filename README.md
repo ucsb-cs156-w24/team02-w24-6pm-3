@@ -2,6 +2,14 @@
 
 Instructions: <https://ucsb-cs156.github.io/w24/lab/team02.html>
 
+|   Name    |  GitHub Id    |            Database             |      
+|-----------|---------------|---------------------------------|
+|Jennifer L |jenniferlopez17| `Recommendation Requests`       | 
+|Jennie W   |jenniebn       | `Help Requests`                 |
+|Towela P   |welaalice      | `UCSB Organisations`            | 
+|Kenisha V  |kenisha-v      | `UCSB Dining Commons Menu Items`| 
+|Andy J     |andyjin1       | `Menu Item Reviews`             | 
+
 TODO: change heading above to your repo name, e.g. `# team02-w24-6pm-4`
 
 TODO: Add a link to the deployed Dokku app for your team here, e.g.
