@@ -23,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
+import java.time.LocalDateTime;
+
 @Tag(name = "MenuItemReview")
 @RequestMapping("/api/menuitemreview")
 @RestController
@@ -31,15 +35,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class MenuItemReviewController extends ApiController {
 
     @Autowired
-    UCSBDateRepository menuItemReviewRepository;
+    MenuItemReviewRepository menuItemReviewRepository;
 
     @Operation(summary= "List all menu item reviews")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
-    public Iterable<UCSBDate> allMenuItemReview() {
+    public Iterable<MenuItemReview> allMenuItemReview() {
        return menuItemReviewRepository.findAll();
     }
-    
+
     @Operation(summary = "Create a new menu item review")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
