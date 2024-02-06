@@ -1,7 +1,7 @@
 { "databaseChangeLog": [
     {
         "changeSet": {
-          "id": "UCSBDiningCommonsMenuItems-1",
+          "id": "UCSBDiningCommonsMenuItem-1",
           "author": "MattP",
           "preConditions": [
             {
@@ -11,7 +11,7 @@
               "not": [
                 {
                   "tableExists": {
-                    "tableName": "UCSBDININGCOMMONSMENUITEMS"
+                    "tableName": "UCSBDININGCOMMONSMENUITEM"
                   }
                 }
               ]
@@ -25,7 +25,7 @@
                     "column": {
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "CONSTRAINT_3"
+                        "primaryKeyName": "PK_UCSBDININGCOMMONSMENUITEM"
                       },
                       "name": "ID",
                       "type": "BIGINT"
@@ -59,7 +59,7 @@
                     }
                   }
                 ],
-                "tableName": "UCSBDININGCOMMONSDININGMENUITEMS"
+                "tableName": "UCSBDININGCOMMONSMENUITEM"
               }
             }]
 
