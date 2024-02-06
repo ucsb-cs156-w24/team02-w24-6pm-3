@@ -25,7 +25,7 @@
                     "column": {
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "CONSTRAINT_2"
+                        "primaryKeyName": "CONSTRAINT_3"
                       },
                       "name": "ID",
                       "type": "BIGINT"
@@ -37,7 +37,7 @@
                         "nullable": false
                       },
                       "name": "diningCommonsCode",
-                      "type": "STRING"
+                      "type": "VARCHAR(255)"
                     }
                   },
                   {
@@ -46,7 +46,7 @@
                         "nullable": false
                       },
                       "name": "name",
-                      "type": "STRING"
+                      "type": "VARCHAR(255)"
                     }
                   },
                   {
@@ -55,11 +55,11 @@
                         "nullable": false
                       },
                       "name": "station",
-                      "type": "STRING"
+                      "type": "VARCHAR(255)"
                     }
                   }
                 ],
-                "tableName": "UCSBDININGCOMMONS"
+                "tableName": "UCSBDININGCOMMONSDININGMENUITEMS"
               }
             }]
 
