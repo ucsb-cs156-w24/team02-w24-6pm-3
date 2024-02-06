@@ -1,0 +1,78 @@
+{
+    "databaseChangeLog": [
+      {
+        "changeSet": {
+          "id": "menuItemReview-1",
+          "author": "AndyJ", 
+          "preConditions": [
+            {
+              "onFail": "MARK_RAN"
+            },
+            {
+              "not": [
+                {
+                  "tableExists": {
+                    "tableName": "MENUITEMREVIEW"
+                  }
+                }
+              ]
+            }
+          ],
+          "changes": [
+            {
+              "createTable": {
+                "tableName": "MENUITEMREVIEW",
+                "columns": [
+                  {
+                    "column": {
+                      "name": "ID",
+                      "type": "BIGINT",
+                      "autoIncrement": true,
+                      "constraints": {
+                        "primaryKey": true,
+                        "primaryKeyName": "pk_menuitemreview_id"
+                      }
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "ITEMID",
+                      "type": "BIGINT"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "REVIEWEREMAIL",
+                      "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "STARS",
+                      "type": "INTEGER"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "DATEREVIEWED",
+                      "type": "TIMESTAMP"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "COMMENTS",
+                      "type": "VARCHAR(255)",
+                      "constraints": {
+                        "nullable": true
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+  
