@@ -12,7 +12,7 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "UCSBORGANIZATIONS")
+@Entity(name = "ucsborganizations")
 public class UCSBOrganizations {
   @Id
 private String orgCode;
