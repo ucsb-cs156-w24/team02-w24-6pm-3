@@ -84,24 +84,20 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
     //     return genericMessage("UCSBDiningCommons menu item with id %s deleted".formatted(diningCommonsCode));
     // }
 
-    // @Operation(summary= "Update a single menu item")
-    // @PreAuthorize("hasRole('ROLE_ADMIN')")
-    // @PutMapping("")
-    // public UCSBDiningCommonsMenuItem updateCommons(
-    //         @Parameter(name="diningCommonCode") @RequestParam String diningCommonsCode,
-    //         @RequestBody @Valid UCSBDiningCommonsMenuItem incoming) {
+    @Operation(summary= "Update a single menu item")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("")
+    public UCSBDiningCommonsMenuItem updateCommons(
+            @Parameter(name="diningCommonCode") @RequestParam String diningCommonsCode,
+            @RequestBody @Valid UCSBDiningCommonsMenuItem incoming) {
 
-    //     UCSBDiningCommonsMenuItem items = ucsbDiningCommonsMenuItemRepository.findById(diningCommonsCode)
-    //             .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, diningCommonsCode));
+        UCSBDiningCommonsMenuItem items = ucsbDiningCommonsMenuItemRepository.findById(diningCommonsCode)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, diningCommonsCode));
+                
+        items.setName(incoming.getName());
 
-    //     items.setId(incoming.getId());  
-    //     items.setDiningCommonsCode(incoming.getDiningCommonsCode());
-    //     items.setName(incoming.getName());
-    //     items.setStation(incoming.getStation());
+        ucsbDiningCommonsMenuItemRepository.save(items);
 
-
-    //     ucsbDiningCommonsMenuItemRepository.save(items);
-
-    //     return items;
-    // }
+        return items;
+    }
 }
