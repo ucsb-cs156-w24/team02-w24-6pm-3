@@ -37,7 +37,7 @@ public class UCSBOrganizationsController extends ApiController {
    @Autowired
    UCSBOrganizationsRepository ucsbOrganizationsRepository;
 
-
+//list all
    @Operation(summary= "List all UCSB organizations")
    @PreAuthorize("hasRole('ROLE_USER')")
    @GetMapping("/all")
@@ -46,7 +46,7 @@ public class UCSBOrganizationsController extends ApiController {
        return organizations;
    }
 
-
+//create
    @Operation(summary= "Create a new organization")
    @PreAuthorize("hasRole('ROLE_ADMIN')")
    @PostMapping("/post")
@@ -73,7 +73,7 @@ public class UCSBOrganizationsController extends ApiController {
        return savedOrganization;
    }
 
-
+//get
    @Operation(summary= "Get a single organization")
    @PreAuthorize("hasRole('ROLE_USER')")
    @GetMapping("")
@@ -86,7 +86,7 @@ public class UCSBOrganizationsController extends ApiController {
        return organizations;
    }
 
-
+//delete
    @Operation(summary= "Delete a UCSBOrganization")
    @PreAuthorize("hasRole('ROLE_ADMIN')")
    @DeleteMapping("")
@@ -100,7 +100,7 @@ public class UCSBOrganizationsController extends ApiController {
        return genericMessage("UCSBOrganizations with id %s deleted".formatted(orgCode));
    }
 
-
+//update
    @Operation(summary= "Update a single organization")
    @PreAuthorize("hasRole('ROLE_ADMIN')")
    @PutMapping("")
@@ -114,7 +114,7 @@ public class UCSBOrganizationsController extends ApiController {
 
 
 
-
+       organizations.setOrgCode(incoming.getOrgCode()); 
        organizations.setOrgTranslationShort(incoming.getOrgTranslationShort()); 
        organizations.setOrgTranslation(incoming.getOrgTranslation());
        organizations.setInactive(incoming.getInactive());
