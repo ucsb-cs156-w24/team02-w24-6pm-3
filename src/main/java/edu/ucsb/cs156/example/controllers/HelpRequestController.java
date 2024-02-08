@@ -34,13 +34,13 @@ import java.time.LocalDateTime;
 public class HelpRequestController extends ApiController {
 
     @Autowired
-    HelpRequestsRepository HelpRequestsRepository;
+    HelpRequestRepository HelpRequestRepository;
 
     @Operation(summary= "List all help requests")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
-    public Iterable<HelpRequest> allHelpRequests() {
-        Iterable<HelpRequest> requests = HelpRequestsRepository.findAll();
+    public Iterable<HelpRequest> allHelpRequest() {
+        Iterable<HelpRequest> requests = HelpRequessRepository.findAll();
         return requests;
     }
 
@@ -69,7 +69,7 @@ public class HelpRequestController extends ApiController {
         helpRequest.setExplanation(explanation);
         helpRequest.setSolved(solved);
 
-        HelpRequest savedHelpRequest = HelpRequestsRepository.save(helpRequest);
+        HelpRequest savedHelpRequest = HelpRequestRepository.save(helpRequest);
 
         return savedHelpRequest;
 
