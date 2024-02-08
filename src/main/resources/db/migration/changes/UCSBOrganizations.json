@@ -25,17 +25,17 @@
                     "column": {
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "CONSTRAINT_5"
+                        "primaryKeyName": "UCSBORGANIZATIONS_1"
                       },
                       "name": "ORG_CODE",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
-                    
+                    "column": {
                       "name": "ORG_TRANSLATION_SHORT",
                       "type": "VARCHAR(255)"
-                    
+                    }
                   },
                   {
                     "column": {
@@ -51,8 +51,7 @@
                       "name": "INACTIVE",
                       "type": "BOOLEAN"
                     }
-                  }]
-                ,
+                  }],
                 "tableName": "UCSBORGANIZATIONS"
               }
             }]
