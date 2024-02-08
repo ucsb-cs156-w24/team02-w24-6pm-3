@@ -28,7 +28,7 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 @Tag(name = "MenuItemReview")
-@RequestMapping("/api/menuitemreview")
+@RequestMapping("/api/menuitemreviews")
 @RestController
 @Slf4j
 
@@ -53,18 +53,19 @@ public class MenuItemReviewController extends ApiController {
             @Parameter(name = "stars") @RequestParam int stars,
             @Parameter(name = "comments") @RequestParam String comments,
             @Parameter(name = "dateReviewed (in iso format, e.g., YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") 
-            @RequestParam("dateReviewed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateReviewed) {
+            @RequestParam("dateReviewed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateReviewed) 
+            throws JsonProcessingException{
 
-        log.info("dateReviewed={}", dateReviewed);
+                log.info("dateReviewed={}", dateReviewed);
 
-        MenuItemReview menuItemReview = new MenuItemReview();
-        menuItemReview.setItemId(itemId);
-        menuItemReview.setReviewerEmail(reviewerEmail);
-        menuItemReview.setStars(stars);
-        menuItemReview.setComments(comments);
-        menuItemReview.setDateReviewed(dateReviewed);
+                MenuItemReview menuItemReview = new MenuItemReview();
+                menuItemReview.setItemId(itemId);
+                menuItemReview.setReviewerEmail(reviewerEmail);
+                menuItemReview.setStars(stars);
+                menuItemReview.setComments(comments);
+                menuItemReview.setDateReviewed(dateReviewed);
 
-        return menuItemReviewRepository.save(menuItemReview);
+                return menuItemReviewRepository.save(menuItemReview);
     }
 }
 

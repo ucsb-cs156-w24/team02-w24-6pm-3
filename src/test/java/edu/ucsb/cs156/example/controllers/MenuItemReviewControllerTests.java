@@ -41,81 +41,106 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
 
     @Test
     public void logged_out_users_cannot_get_all() throws Exception {
-        mockMvc.perform(get("/api/menuitemreview/all"))
+        mockMvc.perform(get("/api/menuitemreviews/all"))
                 .andExpect(status().is(403)); // assuming the security setup is similar
     }
 
     @WithMockUser(roles = { "USER" })
     @Test
     public void logged_in_users_can_get_all() throws Exception {
-        mockMvc.perform(get("/api/menuitemreview/all"))
+        mockMvc.perform(get("/api/menuitemreviews/all"))
                 .andExpect(status().is(200)); // assuming there's no special restriction
     }
 
     @WithMockUser(roles = { "USER" })
     @Test
     public void logged_in_user_can_get_all_menuitemreviews() throws Exception {
-        // Arrange
-        LocalDateTime reviewDate1 = LocalDateTime.now().minusDays(1);
-        LocalDateTime reviewDate2 = LocalDateTime.now();
-        MenuItemReview review1 = new MenuItemReview(1L, 1L, "user1@example.com", 5, reviewDate1, "Great!");
-        MenuItemReview review2 = new MenuItemReview(2L, 2L, "user2@example.com", 4, reviewDate2, "Good!");
 
-        ArrayList<MenuItemReview> expectedReviews = new ArrayList<>(Arrays.asList(review1, review2));
+        // arrange
+        LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+
+        MenuItemReview menuItemReview1 = MenuItemReview.builder()
+                        .itemID(1)
+                        .reviewerEmail("example@example.com")
+                        .stars(5)
+                        .dateReviewed(ldt1)
+                        .comments("excellent")
+                        .build();
+
+        LocalDateTime ldt2 = LocalDateTime.parse("2022-03-11T00:00:00");
+
+        MenuItemReview menuItemReview2 = MenuItemReview.builder()
+                        .itemID(1)
+                        .reviewerEmail("example2@exaple.com")
+                        .stars(2)
+                        .dateReviewed(ldt2)
+                        .comments("mid")
+                        .build();
+
+        ArrayList<MenuItemReview> expectedReviews = new ArrayList<>();
+        expectedReviews.addAll(Arrays.asList(menuItemReview1, menuItemReview2));
+
         when(menuItemReviewRepository.findAll()).thenReturn(expectedReviews);
 
-        // Act & Assert
-        MvcResult response = mockMvc.perform(get("/api/menuitemreview/all"))
-                .andExpect(status().is(200)).andReturn();
+        // act
+        MvcResult response = mockMvc.perform(get("/api/menuitemreviews/all"))
+                        .andExpect(status().isOk()).andReturn();
 
-        // Assert
+        // assert
+
         verify(menuItemReviewRepository, times(1)).findAll();
         String expectedJson = mapper.writeValueAsString(expectedReviews);
         String responseString = response.getResponse().getContentAsString();
         assertEquals(expectedJson, responseString);
-    }
+}
 
     // Example test for POST /api/menuitemreviews/post
 
     @Test
     public void logged_out_users_cannot_post() throws Exception {
-        mockMvc.perform(post("/api/menuitemreview/post"))
-                .andExpect(status().isForbidden());
+        mockMvc.perform(post("/api/menuitemreviews/post"))
+                .andExpect(status().is(403));
     }
 
     @WithMockUser(roles = { "USER" })
     @Test
     public void logged_in_regular_users_cannot_post() throws Exception {
-        mockMvc.perform(post("/api/menuitemreview/post"))
-                .andExpect(status().isForbidden()); // assuming only admins can post
+        mockMvc.perform(post("/api/menuitemreviews/post"))
+                .andExpect(status().is(403)); // assuming only admins can post
     }
 
     @WithMockUser(roles = { "ADMIN" })
     @Test
     public void an_admin_user_can_post_a_new_menuitemreview() throws Exception {
         // Arrange
-        LocalDateTime reviewDate = LocalDateTime.now();
-        MenuItemReview newReview = new MenuItemReview(0L, 3L, "admin@example.com", 5, reviewDate, "Excellent!");
+        LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
-        when(menuItemReviewRepository.save(any(MenuItemReview.class))).thenReturn(newReview);
+        MenuItemReview menuItemReview1 = MenuItemReview.builder()
+                                    .itemID(1)
+                                    .reviewerEmail("example@example.com")
+                                    .stars(5)
+                                    .dateReviewed(ldt1)
+                                    .comments("excellent")
+                                    .build();
+
+        
+
+        when(menuItemReviewRepository.save(eq(menuItemReview1))).thenReturn(menuItemReview1);
 
         // Act & Assert
-        MvcResult response = mockMvc.perform(post("/api/menuitemreview/post")
-                .param("itemId", String.valueOf(newReview.getItemId()))
-                .param("reviewerEmail", newReview.getReviewerEmail())
-                .param("stars", String.valueOf(newReview.getStars()))
-                .param("comments", newReview.getComments())
-                .param("dateReviewed", newReview.getDateReviewed().toString())
-                .with(csrf()))
-                .andExpect(status().is(200)).andReturn();
+        MvcResult response = mockMvc.perform(
+            post("/api/menuitemreviews/post?itemID=1&reviewerEmail=example@example.com&stars=5&dateReviewed=2022-01-03T00:00:00&comments=excellent")
+                            .with(csrf()))
+            .andExpect(status().isOk()).andReturn();
 
 
         // Assert
-        verify(menuItemReviewRepository, times(1)).save(any(MenuItemReview.class));
-        String expectedJson = mapper.writeValueAsString(newReview);
+        verify(menuItemReviewRepository, times(1)).save(menuItemReview1);
+        String expectedJson = mapper.writeValueAsString(menuItemReview1);
         String responseString = response.getResponse().getContentAsString();
         assertEquals(expectedJson, responseString);
     }
 
-    // Further tests could be adapted from the UCSBDatesControllerTests template as needed
+
+
 }
