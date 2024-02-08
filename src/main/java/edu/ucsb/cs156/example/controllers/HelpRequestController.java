@@ -1,8 +1,8 @@
 package edu.ucsb.cs156.example.controllers;
 
-import edu.ucsb.cs156.example.entities.HelpRequests;
+import edu.ucsb.cs156.example.entities.HelpRequest;
 import edu.ucsb.cs156.example.errors.EntityNotFoundException;
-import edu.ucsb.cs156.example.repositories.HelpRequestsRepository;
+import edu.ucsb.cs156.example.repositories.HelpRequestRepository;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,13 +34,13 @@ import java.time.LocalDateTime;
 public class HelpRequestController extends ApiController {
 
     @Autowired
-    HelpRequestRepository HelpRequestRepository;
+    HelpRequestRepository helpRequestRepository;
 
     @Operation(summary= "List all help requests")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/all")
     public Iterable<HelpRequest> allHelpRequest() {
-        Iterable<HelpRequest> requests = HelpRequessRepository.findAll();
+        Iterable<HelpRequest> requests = helpRequestRepository.findAll();
         return requests;
     }
 
@@ -51,7 +51,7 @@ public class HelpRequestController extends ApiController {
             @Parameter(name="requesterEmail") @RequestParam String requesterEmail,
             @Parameter(name="teamId") @RequestParam String teamId,
             @Parameter(name="tableOrBreakoutRoom") @RequestParam String tableOrBreakoutRoom,
-            @Parameter(name="requestTime (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("requestTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime localDateTime,
+            @Parameter(name="requestTime (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("requestTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime requestTime,
             @Parameter(name="explanation") @RequestParam String explanation,
             @Parameter(name="solved") @RequestParam boolean solved
             )
@@ -59,8 +59,6 @@ public class HelpRequestController extends ApiController {
 
         // For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         // See: https://www.baeldung.com/spring-date-parameters
-
-        log.info("requestTime={}", requestTime);
 
         HelpRequest helpRequest = new HelpRequest();
         helpRequest.setRequesterEmail(requesterEmail);
@@ -70,7 +68,7 @@ public class HelpRequestController extends ApiController {
         helpRequest.setExplanation(explanation);
         helpRequest.setSolved(solved);
 
-        HelpRequest savedHelpRequest = HelpRequestRepository.save(helpRequest);
+        HelpRequest savedHelpRequest = helpRequestRepository.save(helpRequest);
 
         return savedHelpRequest;
 
