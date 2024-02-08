@@ -231,7 +231,7 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_can_edit_an_existing_ucsbdate() throws Exception {
+        public void admin_can_edit_an_existing_ucsbdining() throws Exception {
                 // arrange
 
                 UCSBDiningCommonsMenuItem item1 = UCSBDiningCommonsMenuItem.builder()
@@ -269,19 +269,19 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
         
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_cannot_edit_ucsbdate_that_does_not_exist() throws Exception {
+        public void admin_cannot_edit_ucsbdiningcommonsmenuitem_that_does_not_exist() throws Exception {
                 // arrange
 
-                UCSBDiningCommonsMenuItem item1edited = UCSBDiningCommonsMenuItem.builder()
+                UCSBDiningCommonsMenuItem editeditem1 = UCSBDiningCommonsMenuItem.builder()
                                 .diningCommonsCode("ortega")
                                 .name("Baked Pesto Pasta with Chicken")
                                 .station("Entree Specials")                               
                                 .build();
 
 
-                String requestBody = mapper.writeValueAsString(item1edited);
+                String requestBody = mapper.writeValueAsString(editeditem1);
 
-                when(ucsbDiningCommonsMenuItemRepository.findById(item1edited.getDiningCommonsCode())).thenReturn(Optional.empty());
+                when(ucsbDiningCommonsMenuItemRepository.findById(editeditem1.getDiningCommonsCode())).thenReturn(Optional.empty());
 
                 // act
                 MvcResult response = mockMvc.perform(
@@ -293,7 +293,7 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
                                 .andExpect(status().isNotFound()).andReturn();
 
                 // assert
-                verify(ucsbDiningCommonsMenuItemRepository, times(1)).findById(item1edited.getDiningCommonsCode());
+                verify(ucsbDiningCommonsMenuItemRepository, times(1)).findById(editeditem1.getDiningCommonsCode());
                 Map<String, Object> json = responseToJson(response);
                 assertEquals("UCSBDiningCommonsMenuItem with id ortega not found", json.get("message"));
 
