@@ -18,6 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -52,7 +53,9 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
                 mockMvc.perform(get("/api/ucsbdiningcommonsmenuitem/all"))
                                 .andExpect(status().is(200)); // logged
         }
+                
 
+        
         @WithMockUser(roles = { "USER" })
         @Test
         public void logged_in_user_can_get_all_ucsbdiningcommonsmenuitem() throws Exception {
@@ -131,4 +134,38 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
+
+
+        @Test
+        @WithMockUser(roles = { "USER" })
+        public void getById_NotFound_ThrowsEntityNotFoundException() throws Exception {
+        String nonExistentCode = "nonexistent";
+        when(ucsbDiningCommonsMenuItemRepository.findById(nonExistentCode)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/api/ucsbdiningcommonsmenuitem?diningCommonsCode=" + nonExistentCode))
+                .andExpect(status().isNotFound());
+        }
+
+        @Test
+        @WithMockUser(roles = {"USER"})
+        public void getById_EntityNotFound_ReturnsNotFoundStatus() throws Exception {
+        String missingCode = "missing";
+        when(ucsbDiningCommonsMenuItemRepository.findById(missingCode)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/api/ucsbdiningcommonsmenuitem?diningCommonsCode=" + missingCode))
+                .andExpect(status().isNotFound());
+}
+        @Test
+        @WithMockUser(roles = {"USER"})
+        public void getById_WhenNotFound_ShouldReturnNotFoundStatus() throws Exception {
+        String diningCommonsCode = "nonexistent";
+        when(ucsbDiningCommonsMenuItemRepository.findById(diningCommonsCode)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/api/ucsbdiningcommonsmenuitem?diningCommonsCode=" + diningCommonsCode))
+                .andExpect(status().isNotFound());
+        }
+
+
+
+
 }
