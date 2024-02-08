@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface HelpRequestsRepository extends CrudRepository<HelpRequests, Long> {
+public interface HelpRequestsRepository extends CrudRepository<HelpRequest, Long> {
 }
