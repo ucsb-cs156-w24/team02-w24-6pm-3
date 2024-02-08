@@ -3,8 +3,8 @@ package edu.ucsb.cs156.example.controllers;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
 import edu.ucsb.cs156.example.ControllerTestCase;
-import edu.ucsb.cs156.example.entities.HelpRequests;
-import edu.ucsb.cs156.example.repositories.HelpRequestsRepository;
+import edu.ucsb.cs156.example.entities.HelpRequest;
+import edu.ucsb.cs156.example.repositories.HelpRequestRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -117,7 +117,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void an_admin_user_can_post_a_new_ucsbdate() throws Exception {
+        public void an_admin_user_can_post_a_new_request() throws Exception {
                 // arrange
 
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-04-21T14:15");
@@ -241,7 +241,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
         
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_tries_to_delete_non_existant_ucsbdate_and_gets_right_error_message()
+        public void admin_tries_to_delete_non_existant_request_and_gets_right_error_message()
                         throws Exception {
                 // arrange
 
@@ -263,7 +263,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_can_edit_an_existing_ucsbdate() throws Exception {
+        public void admin_can_edit_an_existing_request() throws Exception {
                 // arrange
 
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-04-20T17:35");
@@ -309,7 +309,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
         
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void admin_cannot_edit_ucsbdate_that_does_not_exist() throws Exception {
+        public void admin_cannot_edit_request_that_does_not_exist() throws Exception {
                 // arrange
 
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-04-20T17:35");
