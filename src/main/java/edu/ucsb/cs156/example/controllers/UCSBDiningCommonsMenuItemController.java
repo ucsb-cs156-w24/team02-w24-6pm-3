@@ -43,7 +43,7 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public UCSBDiningCommonsMenuItem postItemsCommonsMenuItem(
-        @Parameter(name="id") @RequestParam long id,
+        // @Parameter(name="id") @RequestParam long id,
         @Parameter(name="diningCommonsCode") @RequestParam String diningCommonsCode,
         @Parameter(name="name") @RequestParam String name,
         @Parameter(name="station") @RequestParam String station
@@ -51,7 +51,7 @@ public class UCSBDiningCommonsMenuItemController extends ApiController {
         {
 
         UCSBDiningCommonsMenuItem items = new UCSBDiningCommonsMenuItem();
-        items.setId(id);
+        // items.setId(id);
         items.setDiningCommonsCode(diningCommonsCode);
         items.setName(name);
         items.setStation(station);
