@@ -8,11 +8,13 @@ import edu.ucsb.cs156.example.entities.UCSBDiningCommonsMenuItem;
 import edu.ucsb.cs156.example.repositories.UCSBDiningCommonsMenuItemRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -298,6 +300,67 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
                 assertEquals("UCSBDiningCommonsMenuItem with id ortega not found", json.get("message"));
 
         }
+
+
+          // Tests for DELETE /api/ucsbdiningcommonsmenuitem?id=... 
+
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_can_delete_a_date() throws Exception {
+                // arrange
+
+                UCSBDiningCommonsMenuItem item1 = UCSBDiningCommonsMenuItem.builder()
+                .diningCommonsCode("ortega")
+                .name("Tofu Banh Mi Sandwich (v)")
+                .station("Entree Specials")                               
+                .build();
+
+                when(ucsbDiningCommonsMenuItemRepository.findById(item1.getDiningCommonsCode())).thenReturn(Optional.of(item1));
+
+
+                // act
+                MvcResult response = mockMvc.perform(
+                                delete("/api/ucsbdiningcommonsmenuitem?diningCommonsCode=ortega")
+                                                .with(csrf()))
+                                .andExpect(status().isOk()).andReturn();
+
+                // assert
+                verify(ucsbDiningCommonsMenuItemRepository, times(1)).findById(item1.getDiningCommonsCode());
+                verify(ucsbDiningCommonsMenuItemRepository, times(1)).delete(any());
+
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("UCSBDiningCommonsMenuItem with id ortega deleted", json.get("message"));
+        }
+        
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_tries_to_delete_non_existant_ucsbdate_and_gets_right_error_message()
+                        throws Exception {
+                                
+                // arrange
+                UCSBDiningCommonsMenuItem editeditem1 = UCSBDiningCommonsMenuItem.builder()
+                .diningCommonsCode("ortega")
+                .name("Baked Pesto Pasta with Chicken")
+                .station("Entree Specials")                               
+                .build();
+
+
+                String requestBody = mapper.writeValueAsString(editeditem1);
+
+                when(ucsbDiningCommonsMenuItemRepository.findById(editeditem1.getDiningCommonsCode())).thenReturn(Optional.empty());
+
+                // act
+                MvcResult response = mockMvc.perform(
+                                delete("/api/ucsbdiningcommonsmenuitem?diningCommonsCode=ortega")
+                                                .with(csrf()))
+                                .andExpect(status().isNotFound()).andReturn();
+
+                // assert
+                verify(ucsbDiningCommonsMenuItemRepository, times(1)).findById(editeditem1.getDiningCommonsCode());
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("UCSBDiningCommonsMenuItem with id ortega not found", json.get("message"));
+        }
+
 
 
 
