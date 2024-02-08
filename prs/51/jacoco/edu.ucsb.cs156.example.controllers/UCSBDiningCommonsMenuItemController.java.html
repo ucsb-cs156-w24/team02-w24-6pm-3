@@ -60,17 +60,17 @@ import javax.validation.Valid;
 <span class="fc" id="L60">        return savedItems;</span>
     }
 
-    // @Operation(summary= &quot;Get a single menu item&quot;)
-    // @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
-    // @GetMapping(&quot;&quot;)
-    // public UCSBDiningCommonsMenuItem getById(
+    @Operation(summary= &quot;Get a single menu item&quot;)
+    @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
+    @GetMapping(&quot;&quot;)
+    public UCSBDiningCommonsMenuItem getById(
 
-    //         @Parameter(name=&quot;diningCommonsCode&quot;) @RequestParam String diningCommonsCode)  {
-    //         UCSBDiningCommonsMenuItem items = ucsbDiningCommonsMenuItemRepository.findById(diningCommonsCode)
-    //             .orElseThrow(() -&gt; new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, diningCommonsCode));
+            @Parameter(name=&quot;diningCommonsCode&quot;) @RequestParam String diningCommonsCode)  {
+<span class="fc" id="L69">            UCSBDiningCommonsMenuItem items = ucsbDiningCommonsMenuItemRepository.findById(diningCommonsCode)</span>
+<span class="fc" id="L70">                .orElseThrow(() -&gt; new EntityNotFoundException(UCSBDiningCommonsMenuItem.class, diningCommonsCode));</span>
 
-    //     return items;
-    // }
+<span class="fc" id="L72">        return items;</span>
+    }
 
     // @Operation(summary= &quot;Delete a menu item&quot;)
     // @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
