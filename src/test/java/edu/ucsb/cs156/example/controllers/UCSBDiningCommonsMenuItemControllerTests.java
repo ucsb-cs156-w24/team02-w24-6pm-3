@@ -3,7 +3,6 @@ package edu.ucsb.cs156.example.controllers;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
 import edu.ucsb.cs156.example.ControllerTestCase;
-import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.entities.UCSBDiningCommonsMenuItem;
 import edu.ucsb.cs156.example.repositories.UCSBDiningCommonsMenuItemRepository;
 
@@ -17,7 +16,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -116,11 +114,6 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
                                 .name("Tofu Banh Mi Sandwich (v)")
                                 .station("Entree Specials")                               
                                 .build();
-                // UCSBDiningCommonsMenuItem item2 = UCSBDiningCommonsMenuItem.builder()
-                //                 .diningCommonsCode("ortega")
-                //                 .name("Baked Pesto Pasta with Chicken")
-                //                 .station("Entree Specials")                               
-                //                 .build();
 
                 when(ucsbDiningCommonsMenuItemRepository.save(eq(item1))).thenReturn(item1);
 
@@ -167,10 +160,6 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
         mockMvc.perform(get("/api/ucsbdiningcommonsmenuitem?diningCommonsCode=" + diningCommonsCode))
                 .andExpect(status().isNotFound());
         }
-
-
-                
-
 
 
 
