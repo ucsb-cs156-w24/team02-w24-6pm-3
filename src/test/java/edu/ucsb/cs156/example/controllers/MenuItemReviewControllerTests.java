@@ -148,7 +148,7 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
 
         @Test
         public void logged_out_users_cannot_get_by_id() throws Exception {
-                mockMvc.perform(get("/api/ucsbdates?id=7"))
+                mockMvc.perform(get("/api/menuitemreviews?id=1"))
                                 .andExpect(status().is(403)); // logged out users can't get by id
         }
 
@@ -172,9 +172,8 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
     
             // Act & Assert
             MvcResult response = mockMvc.perform(
-                post("/api/menuitemreviews/post?itemId=1&reviewerEmail=example@example.com&stars=5&dateReviewed=2022-01-03T00:00:00&comments=excellent")
-                                .with(csrf()))
-                .andExpect(status().isOk()).andReturn();
+                get("/api/menuitemreviews?id=1"))
+                            .andExpect(status().isOk()).andReturn();
     
     
             // Assert
