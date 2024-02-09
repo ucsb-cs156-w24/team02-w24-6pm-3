@@ -21,7 +21,6 @@
           "changes": [
             {
               "createTable": {
-                "tableName": "MENUITEMREVIEW",
                 "columns": [
                   {
                     "column": {
@@ -49,7 +48,7 @@
                   {
                     "column": {
                       "name": "STARS",
-                      "type": "INTEGER"
+                      "type": "INT"
                     }
                   },
                   {
@@ -65,9 +64,11 @@
                       "constraints": {
                         "nullable": true
                       }
+                      
                     }
                   }
-                ]
+                ],
+                "tableName": "MENUITEMREVIEW"
               }
             }
           ]
