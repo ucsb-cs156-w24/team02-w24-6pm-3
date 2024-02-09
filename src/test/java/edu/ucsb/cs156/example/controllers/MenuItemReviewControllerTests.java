@@ -25,6 +25,9 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
+import java.util.Optional;
+import java.util.Map;
+
 
 
 @WebMvcTest(controllers = MenuItemReviewController.class)
@@ -165,7 +168,7 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
     
             
     
-            when(menuItemReviewRepository.findById(eq(1L))).thenReturn(Optional.of(menuItemReview));
+            when(menuItemReviewRepository.findById(eq(1L))).thenReturn(Optional.of(menuItemReview1));
     
             // Act & Assert
             MvcResult response = mockMvc.perform(
