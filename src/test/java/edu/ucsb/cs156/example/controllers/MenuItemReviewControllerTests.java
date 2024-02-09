@@ -141,6 +141,62 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
         assertEquals(expectedJson, responseString);
     }
 
+ // Tests for GET /api/ucsbdates?id=...
 
+        @Test
+        public void logged_out_users_cannot_get_by_id() throws Exception {
+                mockMvc.perform(get("/api/ucsbdates?id=7"))
+                                .andExpect(status().is(403)); // logged out users can't get by id
+        }
+
+        @WithMockUser(roles = { "USER" })
+        @Test
+        public void test_that_logged_in_user_can_get_by_id_when_the_id_exists() throws Exception {
+
+            LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+
+            MenuItemReview menuItemReview1 = MenuItemReview.builder()
+                                        .itemId(1)
+                                        .reviewerEmail("example@example.com")
+                                        .stars(5)
+                                        .dateReviewed(ldt1)
+                                        .comments("excellent")
+                                        .build();
+    
+            
+    
+            when(menuItemReviewRepository.findById(eq(1L))).thenReturn(Optional.of(menuItemReview));
+    
+            // Act & Assert
+            MvcResult response = mockMvc.perform(
+                post("/api/menuitemreviews/post?itemId=1&reviewerEmail=example@example.com&stars=5&dateReviewed=2022-01-03T00:00:00&comments=excellent")
+                                .with(csrf()))
+                .andExpect(status().isOk()).andReturn();
+    
+    
+            // Assert
+            verify(menuItemReviewRepository, times(1)).findById(eq(1L));
+            String expectedJson = mapper.writeValueAsString(menuItemReview1);
+            String responseString = response.getResponse().getContentAsString();
+            assertEquals(expectedJson, responseString);
+        }
+
+        @WithMockUser(roles = { "USER" })
+        @Test
+        public void a_logged_in_user_can_get_by_id_when_the_id_does_not_exist() throws Exception {
+
+                // arrange
+                when(menuItemReviewRepository.findById(eq(1L))).thenReturn(Optional.empty());
+
+                // act
+                MvcResult response = mockMvc.perform(get("/api/menuitemreviews?id=1"))
+                                .andExpect(status().isNotFound()).andReturn();
+
+                // assert
+                verify(menuItemReviewRepository, times(1)).findById(eq(1L));
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("EntityNotFoundException", json.get("type"));
+                assertEquals("MenuItemReview with id 1 not found", json.get("message"));
+        }
 
 }
