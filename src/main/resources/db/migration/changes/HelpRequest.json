@@ -47,7 +47,7 @@
                   },
                   {
                     "column": {
-                      "name": "TABLEORBREAKOUTROOM",
+                      "name": "TABLE_OR_BREAKOUT_ROOM",
                       "type": "VARCHAR(255)"
                     }
                   },
@@ -65,6 +65,9 @@
                   },
                   {
                     "column": {
+                      "constraints": {
+                        "nullable": false
+                      },
                       "name": "SOLVED",
                       "type": "BOOLEAN"
                     }
