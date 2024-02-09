@@ -29,6 +29,12 @@
                         "primaryKey": true,
                         "primaryKeyName": "CONSTRAINT_5"
                       },
+                      "name": "ID",
+                      "type": "BIGINT"
+                    }
+                  },
+                  {
+                    "column": {
                       "name": "REQUESTEREMAIL",
                       "type": "VARCHAR(255)"
                     }
