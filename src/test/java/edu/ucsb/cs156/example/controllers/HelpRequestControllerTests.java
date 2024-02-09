@@ -69,7 +69,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("7")
                                 .requestTime(ldt1)
                                 .explanation("Need help with Swagger-ui")
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 LocalDateTime ldt2 = LocalDateTime.parse("2022-04-20T18:31");
@@ -80,7 +80,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("11")
                                 .requestTime(ldt2)
                                 .explanation("Dokku problems")
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 ArrayList<HelpRequest> expectedDates = new ArrayList<>();
@@ -128,14 +128,14 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("13")
                                 .requestTime(ldt1)
                                 .explanation("Merge conflict")
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 when(helpRequestRepository.save(eq(helpRequest1))).thenReturn(helpRequest1);
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/helprequest/post?requesterEmail=pdg@ucsb.edu&teamId=s22-6pm-4&tableOrBreakoutRoom=13&requestTime=2022-04-21T14:15&explanation=Merge conflict&solved=false")
+                                post("/api/helprequest/post?requesterEmail=pdg@ucsb.edu&teamId=s22-6pm-4&tableOrBreakoutRoom=13&requestTime=2022-04-21T14:15&explanation=Merge conflict&solved=true")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
@@ -167,7 +167,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("13")
                                 .requestTime(ldt)
                                 .explanation("Merge conflict")
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 when(helpRequestRepository.findById(eq(123L))).thenReturn(Optional.of(helpRequest));
@@ -220,7 +220,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("7")
                                 .requestTime(ldt1)
                                 .explanation("Need help with Swagger-ui")
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 when(helpRequestRepository.findById(eq(123L))).thenReturn(Optional.of(helpRequest1));
@@ -283,7 +283,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("11")
                                 .requestTime(ldt2)
                                 .explanation("Dokku problems")
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 String requestBody = mapper.writeValueAsString(helpRequestEdited);
@@ -320,7 +320,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
                                 .tableOrBreakoutRoom("7")
                                 .requestTime(ldt1)
                                 .explanation("Need help with Swagger-ui")
-                                .solved(false)
+                                .solved(true)
                                 .build();
 
                 String requestBody = mapper.writeValueAsString(ucsbEditedDate);
