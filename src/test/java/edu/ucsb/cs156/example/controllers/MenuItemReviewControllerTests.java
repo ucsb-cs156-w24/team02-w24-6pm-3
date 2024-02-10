@@ -273,7 +273,7 @@ public class MenuItemReviewControllerTests extends ControllerTestCase {
                                 .build();
 
                 MenuItemReview menuItemReviewEdited = MenuItemReview.builder()
-                                .itemId(1)
+                                .itemId(2)
                                 .reviewerEmail("example@example1.com")
                                 .stars(1)
                                 .dateReviewed(ldt2)

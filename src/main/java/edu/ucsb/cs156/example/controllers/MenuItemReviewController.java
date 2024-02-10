@@ -92,7 +92,7 @@ public class MenuItemReviewController extends ApiController {
     @Operation(summary= "Update a singe menu item review")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
-    public MenuItemReview updateUCSBDate(
+    public MenuItemReview updateMenuItemReview(
             @Parameter(name="id") @RequestParam Long id,
             @RequestBody @Valid MenuItemReview incoming) {
 
