@@ -2,8 +2,8 @@
     "databaseChangeLog": [
       {
         "changeSet": {
-          "id": "menuItemReview-1",
-          "author": "AndyJ", 
+          "id": "MenuItemReview-1",
+          "author": "AndyJ",
           "preConditions": [
             {
               "onFail": "MARK_RAN"
@@ -21,7 +21,6 @@
           "changes": [
             {
               "createTable": {
-                "tableName": "MENUITEMREVIEW",
                 "columns": [
                   {
                     "column": {
@@ -30,31 +29,31 @@
                       "autoIncrement": true,
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "pk_menuitemreview_id"
+                        "primaryKeyName": "CONSTRAINT_8"
                       }
                     }
                   },
                   {
                     "column": {
-                      "name": "ITEMID",
+                      "name": "ITEM_ID",
                       "type": "BIGINT"
                     }
                   },
                   {
                     "column": {
-                      "name": "REVIEWEREMAIL",
+                      "name": "REVIEWER_EMAIL",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
                       "name": "STARS",
-                      "type": "INTEGER"
+                      "type": "INT"
                     }
                   },
                   {
                     "column": {
-                      "name": "DATEREVIEWED",
+                      "name": "DATE_REVIEWED",
                       "type": "TIMESTAMP"
                     }
                   },
@@ -65,9 +64,11 @@
                       "constraints": {
                         "nullable": true
                       }
+                      
                     }
                   }
-                ]
+                ],
+                "tableName": "MENUITEMREVIEW"
               }
             }
           ]
