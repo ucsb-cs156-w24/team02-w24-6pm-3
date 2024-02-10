@@ -192,125 +192,125 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
 
         // Tests for DELETE /api/ucsborganization?...
 
-        // @WithMockUser(roles = { "ADMIN", "USER" })
-        // @Test
-        // public void admin_can_delete_a_date() throws Exception {
-        //         // arrange
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_can_delete_a_date() throws Exception {
+                // arrange
 
-        //         UCSBOrganizations ZPR = UCSBOrganizations.builder()
-        //                         .orgCode("ZPR")
-        //                         .orgTranslationShort("ZETA PHI RHO")
-        //                         .orgTranslation("ZETA PHI RHO")
-        //                         .inactive(false)
-        //                         .build();
+                UCSBOrganizations ZPR = UCSBOrganizations.builder()
+                                .orgCode("ZPR")
+                                .orgTranslationShort("ZETA PHI RHO")
+                                .orgTranslation("ZETA PHI RHO")
+                                .inactive(false)
+                                .build();
 
-        //         when(ucsbOrganizationsRepository.findById(eq("ZPR"))).thenReturn(Optional.of(ZPR));
+                when(ucsbOrganizationsRepository.findById(eq("ZPR"))).thenReturn(Optional.of(ZPR));
 
-        //         // act
-        //         MvcResult response = mockMvc.perform(
-        //                         delete("/api/ucsborganization?orgCode=ZPR")
-        //                                         .with(csrf()))
-        //                         .andExpect(status().isOk()).andReturn();
+                // act
+                MvcResult response = mockMvc.perform(
+                                delete("/api/ucsborganization?orgCode=ZPR")
+                                                .with(csrf()))
+                                .andExpect(status().isOk()).andReturn();
 
-        //         // assert
-        //         verify(ucsbOrganizationsRepository, times(1)).findById("ZPR");
-        //         verify(ucsbOrganizationsRepository, times(1)).delete(any());
+                // assert
+                verify(ucsbOrganizationsRepository, times(1)).findById("ZPR");
+                verify(ucsbOrganizationsRepository, times(1)).delete(any());
 
-        //         Map<String, Object> json = responseToJson(response);
-        //         assertEquals("UCSBOrganizations with id ZPR deleted", json.get("message"));
-        // }
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("UCSBOrganizations with id ZPR deleted", json.get("message"));
+        }
 
-        // @WithMockUser(roles = { "ADMIN", "USER" })
-        // @Test
-        // public void admin_tries_to_delete_non_existant_organization_and_gets_right_error_message()
-        //                 throws Exception {
-        //         // arrange
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_tries_to_delete_non_existant_organization_and_gets_right_error_message()
+                        throws Exception {
+                // arrange
 
-        //         when(ucsbOrganizationsRepository.findById(eq("DNE"))).thenReturn(Optional.empty()); //DNE = does not exist
+                when(ucsbOrganizationsRepository.findById(eq("DNE"))).thenReturn(Optional.empty()); //DNE = does not exist
 
-        //         // act
-        //         MvcResult response = mockMvc.perform(
-        //                         delete("/api/ucsborganization?orgCode=DNE")
-        //                                         .with(csrf()))
-        //                         .andExpect(status().isNotFound()).andReturn();
+                // act
+                MvcResult response = mockMvc.perform(
+                                delete("/api/ucsborganization?orgCode=DNE")
+                                                .with(csrf()))
+                                .andExpect(status().isNotFound()).andReturn();
 
-        //         // assert
-        //         verify(ucsbOrganizationsRepository, times(1)).findById("DNE");
-        //         Map<String, Object> json = responseToJson(response);
-        //         assertEquals("UCSBOrganizations with id DNE not found", json.get("message"));
-        // }
+                // assert
+                verify(ucsbOrganizationsRepository, times(1)).findById("DNE");
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("UCSBOrganizations with id DNE not found", json.get("message"));
+        }
 
         // Tests for PUT /api/ucsborganization?...
 
-        // @WithMockUser(roles = { "ADMIN", "USER" })
-        // @Test
-        // public void admin_can_edit_an_existing_organization() throws Exception {
-        //         // arrange
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_can_edit_an_existing_organization() throws Exception {
+                // arrange
 
-        //         UCSBOrganizations SKY_ORIG = UCSBOrganizations.builder()
-        //                         .orgCode("SKY")
-        //                         .orgTranslationShort("SKYDIVING CLUB")
-        //                         .orgTranslation("SKYDIVING CLUB AT UCSB")
-        //                         .inactive(false)
-        //                         .build();
+                UCSBOrganizations SKY_ORIG = UCSBOrganizations.builder()
+                                .orgCode("SKY")
+                                .orgTranslationShort("SKYDIVING CLUB")
+                                .orgTranslation("SKYDIVING CLUB AT UCSB")
+                                .inactive(false)
+                                .build();
 
-        //         UCSBOrganizations SKY_EDIT = UCSBOrganizations.builder()
-        //                         .orgCode("SKYZ")
-        //                         .orgTranslationShort("SKYDIVERS")
-        //                         .orgTranslation("SKYDIVERS CLUB AT UCSB")
-        //                         .inactive(true)
-        //                         .build();
+                UCSBOrganizations SKY_EDIT = UCSBOrganizations.builder()
+                                .orgCode("SKYZ")
+                                .orgTranslationShort("SKYDIVERS")
+                                .orgTranslation("SKYDIVERS CLUB AT UCSB")
+                                .inactive(true)
+                                .build();
 
-        //         String requestBody = mapper.writeValueAsString(SKY_EDIT);
+                String requestBody = mapper.writeValueAsString(SKY_EDIT);
 
-        //         when(ucsbOrganizationsRepository.findById(eq("SKY"))).thenReturn(Optional.of(SKY_ORIG));
+                when(ucsbOrganizationsRepository.findById(eq("SKY"))).thenReturn(Optional.of(SKY_ORIG));
 
-        //         // act
-        //         MvcResult response = mockMvc.perform(
-        //                         put("/api/ucsborganization?orgCode=SKY")
-        //                                         .contentType(MediaType.APPLICATION_JSON)
-        //                                         .characterEncoding("utf-8")
-        //                                         .content(requestBody)
-        //                                         .with(csrf()))
-        //                         .andExpect(status().isOk()).andReturn();
+                // act
+                MvcResult response = mockMvc.perform(
+                                put("/api/ucsborganization?orgCode=SKY")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .characterEncoding("utf-8")
+                                                .content(requestBody)
+                                                .with(csrf()))
+                                .andExpect(status().isOk()).andReturn();
 
-        //         // assert
-        //         verify(ucsbOrganizationsRepository, times(1)).findById("SKY");
-        //         verify(ucsbOrganizationsRepository, times(1)).save(SKY_EDIT); // should be saved with updated info
-        //         String responseString = response.getResponse().getContentAsString();
-        //         assertEquals(requestBody, responseString);
-        // }
+                // assert
+                verify(ucsbOrganizationsRepository, times(1)).findById("SKY");
+                verify(ucsbOrganizationsRepository, times(1)).save(SKY_EDIT); // should be saved with updated info
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(requestBody, responseString);
+        }
 
 
-        // @WithMockUser(roles = { "ADMIN", "USER" })
-        // @Test
-        // public void admin_cannot_edit_organization_that_does_not_exist() throws Exception {
-        //         // arrange
+        @WithMockUser(roles = { "ADMIN", "USER" })
+        @Test
+        public void admin_cannot_edit_organization_that_does_not_exist() throws Exception {
+                // arrange
 
-        //         UCSBOrganizations editedOrg = UCSBOrganizations.builder()
-        //                         .orgCode("DNE")
-        //                         .orgTranslationShort("DOES NOT")
-        //                         .orgTranslation("DOES NOT EXIST")
-        //                         .inactive(false)
-        //                         .build();
+                UCSBOrganizations editedOrg = UCSBOrganizations.builder()
+                                .orgCode("DNE")
+                                .orgTranslationShort("DOES NOT")
+                                .orgTranslation("DOES NOT EXIST")
+                                .inactive(false)
+                                .build();
 
-        //         String requestBody = mapper.writeValueAsString(editedOrg);
+                String requestBody = mapper.writeValueAsString(editedOrg);
 
-        //         when(ucsbOrganizationsRepository.findById(eq("DNE"))).thenReturn(Optional.empty());
+                when(ucsbOrganizationsRepository.findById(eq("DNE"))).thenReturn(Optional.empty());
 
-        //         // act
-        //         MvcResult response = mockMvc.perform(
-        //                         put("/api/ucsborganization?orgCode=DNE")
-        //                                         .contentType(MediaType.APPLICATION_JSON)
-        //                                         .characterEncoding("utf-8")
-        //                                         .content(requestBody)
-        //                                         .with(csrf()))
-        //                         .andExpect(status().isNotFound()).andReturn();
+                // act
+                MvcResult response = mockMvc.perform(
+                                put("/api/ucsborganization?orgCode=DNE")
+                                                .contentType(MediaType.APPLICATION_JSON)
+                                                .characterEncoding("utf-8")
+                                                .content(requestBody)
+                                                .with(csrf()))
+                                .andExpect(status().isNotFound()).andReturn();
 
-        //         // assert
-        //         verify(ucsbOrganizationsRepository, times(1)).findById("DNE");
-        //         Map<String, Object> json = responseToJson(response);
-        //         assertEquals("UCSBOrganizations with id DNE not found", json.get("message"));
+                // assert
+                verify(ucsbOrganizationsRepository, times(1)).findById("DNE");
+                Map<String, Object> json = responseToJson(response);
+                assertEquals("UCSBOrganizations with id DNE not found", json.get("message"));
 
-        // }
+        }
 }
