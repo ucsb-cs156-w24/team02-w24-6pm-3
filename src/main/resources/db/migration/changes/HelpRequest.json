@@ -1,8 +1,9 @@
-{ "databaseChangeLog": [
-    {
+{
+    "databaseChangeLog": [
+      {
         "changeSet": {
-          "id": "UCSBOrganizations-1",
-          "author": "TowelaP",
+          "id": "HelpRequest-1",
+          "author": "JennieW",
           "preConditions": [
             {
               "onFail": "MARK_RAN"
@@ -11,7 +12,7 @@
               "not": [
                 {
                   "tableExists": {
-                    "tableName": "UCSBORGANIZATIONS"
+                    "tableName": "HELPREQUEST"
                   }
                 }
               ]
@@ -23,23 +24,42 @@
                 "columns": [
                   {
                     "column": {
+                      "autoIncrement": true,
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "UCSBORGANIZATIONS-1"
+                        "primaryKeyName": "CONSTRAINT_3"
                       },
-                      "name": "ORG_CODE",
+                      "name": "ID",
+                      "type": "BIGINT"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "REQUESTER_EMAIL",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
-                      "name": "ORG_TRANSLATION_SHORT",
+                      "name": "TEAM_ID",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
-                      "name": "ORG_TRANSLATION",
+                      "name": "TABLE_OR_BREAKOUT_ROOM",
+                      "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "REQUEST_TIME",
+                      "type": "TIMESTAMP"
+                    }
+                  }, 
+                  {
+                    "column": {
+                      "name": "EXPLANATION",
                       "type": "VARCHAR(255)"
                     }
                   },
@@ -48,14 +68,16 @@
                       "constraints": {
                         "nullable": false
                       },
-                      "name": "INACTIVE",
+                      "name": "SOLVED",
                       "type": "BOOLEAN"
                     }
-                  }],
-                "tableName": "UCSBORGANIZATIONS"
+                  }
+                ],
+                "tableName": "HELPREQUEST"
               }
-            }]
-
+            }
+          ]
         }
-    }
-]}
+      }
+    ]
+  }

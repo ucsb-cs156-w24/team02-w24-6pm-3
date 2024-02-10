@@ -1,8 +1,9 @@
-{ "databaseChangeLog": [
-    {
+{
+    "databaseChangeLog": [
+      {
         "changeSet": {
-          "id": "UCSBOrganizations-1",
-          "author": "TowelaP",
+          "id": "RecommendationRequest-1",
+          "author": "JenniferL",
           "preConditions": [
             {
               "onFail": "MARK_RAN"
@@ -11,7 +12,7 @@
               "not": [
                 {
                   "tableExists": {
-                    "tableName": "UCSBORGANIZATIONS"
+                    "tableName": "RECOMMENDATIONREQUEST"
                   }
                 }
               ]
@@ -23,24 +24,42 @@
                 "columns": [
                   {
                     "column": {
+                      "autoIncrement": true,
                       "constraints": {
-                        "primaryKey": true,
-                        "primaryKeyName": "UCSBORGANIZATIONS-1"
+                        "primaryKey": true
                       },
-                      "name": "ORG_CODE",
+                      "name": "ID",
+                      "type": "BIGINT"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "REQUESTER_EMAIL",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
-                      "name": "ORG_TRANSLATION_SHORT",
+                      "name": "PROFESSOR_EMAIL",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
-                      "name": "ORG_TRANSLATION",
+                      "name": "EXPLANATION",
                       "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "DATE_REQUESTED",
+                      "type": "TIMESTAMP"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "DATE_NEEDED",
+                      "type": "TIMESTAMP"
                     }
                   },
                   {
@@ -48,14 +67,16 @@
                       "constraints": {
                         "nullable": false
                       },
-                      "name": "INACTIVE",
+                      "name": "DONE",
                       "type": "BOOLEAN"
                     }
-                  }],
-                "tableName": "UCSBORGANIZATIONS"
+                  }
+                ],
+                "tableName": "RECOMMENDATIONREQUEST"
               }
-            }]
-
+            }
+          ]
         }
-    }
-]}
+      }
+    ]
+  }

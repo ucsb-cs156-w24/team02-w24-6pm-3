@@ -14,17 +14,20 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "ucsbdiningcommons")
-public class UCSBDiningCommons {
+@Entity(name = "ucsbdiningcommonsmenuitem")
+public class UCSBDiningCommonsMenuItem {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-  private String code;
+  private String diningCommonsCode;
   private String name;
   private String station;
-  private boolean hasSackMeal;
-  private boolean hasTakeOutMeal;
-  private boolean hasDiningCam;
-  private Double latitude;
-  private Double longitude;
+  // private String code;
+  // private String name;
+  // private String station;
+  // private boolean hasSackMeal;
+  // private boolean hasTakeOutMeal;
+  // private boolean hasDiningCam;
+  // private Double latitude;
+  // private Double longitude;
 }
